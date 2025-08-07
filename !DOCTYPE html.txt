@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Somewhere Shire Hobbit Name Generator</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fdf8ef;
+      text-align: center;
+      padding: 2em;
+      color: #2f2f2f;
+    }
+    img.logo {
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #514811;
+      font-size: 2.5em;
+    }
+    input, select, button {
+      font-size: 1.2em;
+      margin: 0.5em;
+      padding: 0.5em;
+    }
+    .result {
+      margin-top: 2em;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #8F8C2D;
+    }
+    .poem {
+      font-style: italic;
+      margin-top: 1em;
+    }
+    .email-section {
+      margin-top: 2em;
+    }
+    .email-section input {
+      padding: 0.5em;
+      font-size: 1em;
+      width: 250px;
+    }
+    .email-section button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+    }
+    .footer-image {
+      margin-top: 3em;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <img class="logo" src="https://cdn.glitch.global/your-folder/your-logo.png" alt="Somewhere Shire Logo">
+
+  <!-- Title -->
+  <h1>Discover Your Hobbit Name</h1>
+
+  <!-- Intro -->
+  <p><strong>Welcome to Somewhere Shire.</strong><br>
+  Where you can rest, feast, and belong.</p>
+  <p><em>Now, where to begin? Ah, yes — concerning Hobbits...</em></p>
+
+  <!-- Gender -->
+  <label for="gender">I am a:</label>
+  <select id="gender">
+    <option value="female">Female Hobbit</option>
+    <option value="male">Male Hobbit</option>
+  </select><br>
+
+  <!-- Name Input -->
+  <input type="text" id="nameInput" placeholder="Enter your name here">
+  <button onclick="generateName()">Get Hobbit Name</button>
+
+  <!-- Result -->
+  <div class="result" id="result"></div>
+
+  <!-- Poem -->
+  <div class="poem" id="poem" style="display:none;">
+    In green-grown hills your name is sung,<br>
+    Where tales are old and hearts stay young.
+  </div>
+
+  <!-- Email Sign-Up -->
+  <div class="email-section" id="emailSection" style="display:none;">
+    <p><strong>Please join us. We're quite ready for another adventure.</strong></p>
+    <input type="email" id="emailInput" placeholder="Your email address">
+    <button onclick="submitEmail()">Adventure!</button>
+  </div>
+
+  <!-- Footer Image -->
+  <img class="footer-image" src="https://cdn.glitch.global/your-folder/join-the-adventure-footer.png" alt="Join the Adventure Image" id="footerImage" style="display:none;">
+
+  <script>
+    const maleFirstNames = [
+      "Bilbo", "Frodo", "Samwise", "Meriadoc", "Peregrin", "Hamfast", "Bungo", "Drogo", "Hobson", "Holman",
+      "Odo", "Milo", "Tobold", "Orgulas", "Balbo", "Falco", "Fredegar", "Posco", "Paladin", "Lotho",
+      "Wilcome", "Doderic", "Berilac", "Seredic", "Isembold", "Ilberic", "Theobald", "Halfred", "Fastolph", "Gorbadoc",
+      "Rudigar", "Andwise", "Anson", "Alaric", "Sedric", "Wilibald", "Gundabald", "Togo", "Basso", "Dudo",
+      "Isengar", "Marmadas", "Hugo", "Marco", "Cottar", "Robin", "Reginard", "Harding", "Bowman", "Tom"
+    ];
+
+    const femaleFirstNames = [
+      "Rosie", "Marigold", "Primula", "Belladonna", "Lobelia", "Esmeralda", "Daisy", "Ruby", "Angelica", "Camellia",
+      "Pimpernel", "Myrtle", "Hanna", "Melilot", "Peony", "Begonia", "Nina", "Lily", "Tulip", "Iris",
+      "May", "Primrose", "Olive", "Buttercup", "Amaranth", "Holly", "Elaine", "Nora", "Lilac", "Fuchsia",
+      "Celandine", "Acacia", "Clover", "Fern", "Heather", "Maple", "Nettle", "Petunia", "Snowdrop", "Sunflower",
+      "Viola", "Willow", "Yarrow", "Zinnia", "Aster", "Briony", "Coral", "Elmira", "Hazel", "Jasmine"
+    ];
+
+    const lastNames = [
+      "Baggins", "Brandybuck", "Took", "Gamgee", "Proudfoot", "Goodbody", "Burrows", "Chubb", "Hornblower", "Bolger",
+      "Cotton", "Greenhand", "Hayward", "Gardner", "Brownlock", "Noakes", "Smallburrow", "Twofoot", "Underhill", "Grubb",
+      "Whitfoot", "Bracegirdle", "Boffin", "Brockhouse", "Dug", "Hill", "Longhole", "Roper", "Sandheaver", "Thistlewool",
+      "Mugwort", "Barrowes", "Applethorn", "Rushlight", "Fallowhide", "Banks", "Leafcutter", "Pipe", "Goodenough", "Hedgegrove",
+      "Ploughman", "Millstone", "Berrybush", "Loamfarrow", "Featherfoot", "Cobblepot", "Hilltop", "Tunnelly", "Button", "Shirebloom"
+    ];
+
+    function generateName() {
+      const name = document.getElementById("nameInput").value.toLowerCase();
+      const gender = document.getElementById("gender").value;
+
+      if (!name) {
+        document.getElementById("result").innerText = "Please enter your name!";
+        return;
+      }
+
+      let seed = 0;
+      for (let i = 0; i < name.length; i++) {
+        seed += name.charCodeAt(i);
+      }
+
+      const firstNames = gender === "male" ? maleFirstNames : femaleFirstNames;
+      const hobbitFirst = firstNames[seed % firstNames.length];
+      const hobbitLast = lastNames[(seed + 7) % lastNames.length];
+
+      document.getElementById("result").innerText = `Your Hobbit name is: ${hobbitFirst} ${hobbitLast}`;
+      document.getElementById("poem").style.display = "block";
+      document.getElementById("emailSection").style.display = "block";
+      document.getElementById("footerImage").style.display = "block";
+    }
+
+    function submitEmail() {
+      const email = document.getElementById("emailInput").value;
+      if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      alert("Thank you! You've joined the adventure.");
+      document.getElementById("emailInput").value = "";
+    }
+  </script>
+
+</body>
+</html>
