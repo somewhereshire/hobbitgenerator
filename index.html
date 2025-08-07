@@ -50,6 +50,10 @@
       max-width: 100%;
       height: auto;
     }
+     iframe {
+      border: none;
+      margin-top: 1em;
+     }
   </style>
 </head>
 <body>
@@ -86,10 +90,15 @@
   </div>
 
   <!-- Email Sign-Up -->
-  <div class="email-section" id="emailSection" style="display:none;">
+ <div class="email-section" id="emailSection" style="display:none;">
     <p><strong>Please join us. We're quite ready for another adventure.</strong></p>
-    <input type="email" id="emailInput" placeholder="Your email address">
-    <button onclick="submitEmail()">Adventure!</button>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScmLZyyBnpv8JGg2F6Ufs4Z4AK9XbLdxF5nGvlN3ybUNaQKhw/viewform?embedded=true" width="100%" height="500"></iframe>
+
+    <p style="margin-top: 2em;">
+      🌿 A Hobbit name is best when shared!<br>
+      🧙‍♀️ Invite your friends to find theirs at:<br>
+      👉 <a href="https://yourusername.github.io/hobbitgenerator/" target="_blank">yourusername.github.io/hobbitgenerator</a>
+    </p>
   </div>
 
   <!-- Footer Image -->
@@ -144,19 +153,11 @@
       document.getElementById("footerImage").style.display = "block";
     }
 
-    function submitEmail() {
-      const email = document.getElementById("emailInput").value;
-      if (!email || !email.includes("@")) {
-        alert("Please enter a valid email address.");
-        return;
-      }
-      alert("Thank you! You've joined the adventure.");
-      document.getElementById("emailInput").value = "";
-    }
   </script>
 
 </body>
 </html>
+
 
 
 
