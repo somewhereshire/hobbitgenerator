@@ -36,24 +36,15 @@
     .email-section {
       margin-top: 2em;
     }
-    .email-section input {
-      padding: 0.5em;
-      font-size: 1em;
-      width: 250px;
-    }
-    .email-section button {
-      padding: 0.5em 1em;
-      font-size: 1em;
-    }
     .footer-image {
       margin-top: 3em;
       max-width: 100%;
       height: auto;
     }
-     iframe {
+    iframe {
       border: none;
       margin-top: 1em;
-     }
+    }
   </style>
 </head>
 <body>
@@ -89,8 +80,8 @@
     Where tales are old and hearts stay young.
   </div>
 
-  <!-- Email Sign-Up -->
- <div class="email-section" id="emailSection" style="display:none;">
+  <!-- Email Sign-Up (Embedded Google Form) -->
+  <div class="email-section" id="emailSection" style="display:none;">
     <p><strong>Please join us. We're quite ready for another adventure.</strong></p>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScmLZyyBnpv8JGg2F6Ufs4Z4AK9XbLdxF5nGvlN3ybUNaQKhw/viewform?embedded=true" width="100%" height="500"></iframe>
 
@@ -152,12 +143,7 @@
       document.getElementById("emailSection").style.display = "block";
       document.getElementById("footerImage").style.display = "block";
     }
-
   </script>
 
 </body>
 </html>
-
-
-
-
